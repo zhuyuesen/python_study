@@ -9,8 +9,8 @@ Python在Linux/macOS的命令是`python3`，在Windows下的命令是`python`
 在 >>> 下输入 `exit()` 回车退出
 
 ## python解释器
-什么是python解释器？
-要运行python代码，就需要Python解释器去执行.py文件
+什么是python解释器？  
+要运行python代码，就需要Python解释器去执行.py文件  
 CPython: 官方解释器。 当我们从Python官方网站下载并安装好Python 3.x后，我们就直接获得了这个官方版本的解释器
 
 ## 直接运行 py 文件
@@ -75,14 +75,13 @@ Michael
 3.3000000000000003
 ```
 
-字符串:
-单引号'或双引号"括起来的任意文本
-如果'本身也是一个字符，那就可以用""括起来，比如"I'm OK"
+字符串: 单引号'或双引号"括起来的任意文本  
+如果'本身也是一个字符，那就可以用""括起来，比如"I'm OK"  
 如果字符串内部既包含'又包含"怎么办？可以用转义字符\来标识
 ```python
 'I\'m \"OK\"!'
 ```
-表示的字符串内容是：I'm "OK"!
+表示的字符串内容是：I'm "OK"!  
 r''表示''内部的字符串默认不转义
 ```python
 >>> print('\\\t\\')
@@ -101,7 +100,7 @@ line2
 line3
 ```
 
-布尔值： True False
+布尔值： True False  
 布尔值可以用and、or和not运算
 ```python
 >>> True and True
@@ -117,7 +116,7 @@ False
 ```
 
 **空值 None**
-None不能理解为0，因为0是有意义的，而None是一个特殊的空值。
+None不能理解为0，因为0是有意义的，而None是一个特殊的空值。  
 **None 表示“没有值”，不是 0，不是空字符串，也不是 False**
 用法：
 1. 表示“还没值 / 没结果”
@@ -171,9 +170,6 @@ if None:
 bool(None)  # False
 ```
 
-
-
-
 **变量**
 ```python
 a = 1
@@ -186,10 +182,9 @@ Answer = True
 ```python
 PI = 3.14159265359
 ```
-但事实上PI仍然是一个变量，Python根本没有任何机制保证PI不会被改变，
-所以，用全部大写的变量名表示常量只是一个习惯上的用法，如果你一定要改变变量PI的值，也没人能拦住你。
-
-在Python中，有两种除法
+但事实上PI仍然是一个变量，Python根本没有任何机制保证PI不会被改变，  
+所以，用全部大写的变量名表示常量只是一个习惯上的用法，如果你一定要改变变量PI的值，也没人能拦住你。  
+在Python中，有两种除法  
 一种除法是/, /除法计算结果是浮点数，即使是两个整数恰好整除，结果也是浮点数：
 ```python
 >>> 10 / 3
@@ -205,7 +200,7 @@ PI = 3.14159265359
 ```
 
 ### 3. 字符串和编码
-最早的计算机在设计时采用8个比特（bit）作为一个字节（byte），所以，一个字节能表示的最大的整数就是255（二进制11111111=十进制255），
+最早的计算机在设计时采用8个比特（bit）作为一个字节（byte），所以，一个字节能表示的最大的整数就是255（二进制11111111=十进制255），  
 如果要表示更大的整数，就必须用更多的字节。比如两个字节可以表示的最大整数是65535，4个字节可以表示的最大整数是4294967295。
 
 ### 4. list 和 tuple
@@ -397,8 +392,176 @@ s.remove(4)
 ```
 
 ## 函数
+基本内置函数  
+abs 求绝对值  
+max min 求最大最小值  
+int 把其他数据类型转为整数  
+float 把其他数据类型转为浮点数  
+hex 把整数转为十六进制  
+```py
+>>> abs(-20)
+20
+>>> abs(12.34)
+12.34
+
+# 参数数量或类型不对 会报错 TypeError
+>>> abs(1, 2)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: abs() takes exactly one argument (2 given)
+
+>>> max(2, 3, 1, -5)
+3
+>>> int(12.34)
+12
+>>> float('12.34')
+12.34
+>>> hex(22)
+'0x16'
+```
+
+**定义函数**： 定义一个函数要使用def语句，依次写出函数名、括号、括号中的参数和冒号:，然后，在缩进块中编写函数体，函数的返回值用return语句返回。
+求绝对值:
+```py
+def my_abs(x):
+    if x >= 0:
+        return x
+    else:
+        return -x
+
+print(my_abs(-99))
+```
+
+**空函数**： 
+定义一个函数，但是什么都不做。一般用来占位  
+pass语句什么都不做
+```py
+def nop():
+    pass
+```
+**函数参数校验**:
+上述自定求求绝对值函数没有校验参数类型 传入字符串时会报错。假如限制参数类型只能为整数和浮点数
+```py
+def my_abs(x):
+    if not isinstance(x, (int, flaot)):
+        raise TypeError('bad operand type)
+    if x >= 0:
+        return x
+    else:
+        return -x
+```
+
+**返回多个值**:
+函数可以返回多个值，实际返回的是元组类型 tuple，接受时一般省略括号
+```py
+import math
+def move(x,y,step, angle=0):
+    nx = x + step * math.cos(angle)
+    ny = y - step * math.sin(angle)
+    return nx,ny
+
+>>> x, y = move(100, 100, 60, math.pi / 6)
+>>> print(x, y)
+151.96152422706632 70.0
+```
+### 函数参数
+**默认参数**: 必选参数在前，默认参数在后
+```py
+def power(x, n=2):
+    s = 1
+    while n > 0:
+        n = n -1
+        s = s * x
+    return s
+
+power(5)
+# 等于
+power(5, 2)
+```
+多个默认参数 可以跳过前面的默认参数传递后面的默认参数值  
+也可以不按顺序提供部分默认参数。当不按顺序提供部分默认参数时，需要把参数名写上
+```py
+def enroll(name, gender, age=6, vity='beijing')
+
+enroll('Sarah', 'F')
+# 传递 name gender 和 age
+enroll('Bob', 'M', 7)
+# 传递 name gender 和 city 跳过了 age
+enroll('Adam', 'M', city='Tianjin')
+```
+
+默认参数的问题：
+```py
+def add_end(L=[]):
+    L.append('END')
+    return L
+
+add_end() # ['END']
+add_end() # ['END', 'END']
+```
+多次调用 每次都增加了 'END'，为什么?  
+因为 **Python函数在定义的时候，默认参数L的值就被计算出来了，即[]，因为默认参数L也是一个变量，它指向对象[]，每次调用该函数，如果改变了L的内容，则下次调用时，默认参数的内容就变了，不再是函数定义时的[]了**  
+所以 **定义默认参数要牢记一点：默认参数必须指向不变对象！**
+```py
+def add_end(L=None):
+    if L is None:
+        L = []
+    L.append('END')
+    return L
+```
+**可变参数**: 可以传递任意多个值的参数, 可变参数接收到的值是一个tuple
+```py
+def calc(*numbers):
+    sum = 0
+    for n in numbers:
+        sum = sum + n * n
+    return sunm
+
+# 可以传递list或tuple为可变参数
+nums = [1, 2, 3]
+calc(*nums)
+```
+**关键字参数**: 格式 **kw  
+关键字参数允许你传入0个或任意个含参数名的参数，这些关键字参数在函数内部自动组装为一个dict
+```py
+def person(name, age, **kw):
+    print('name:', name, 'age:', age, 'other:', kw)
+
+>>> person('Michael', 30)
+name: Michael age: 30 other: {}
+>>> person('Bob', 35, city='Beijing')
+name: Bob age: 35 other: {'city': 'Beijing'}
+>>> person('Adam', 45, gender='M', job='Engineer')
+name: Adam age: 45 other: {'gender': 'M', 'job': 'Engineer'}
+```
+**命名关键字参数**: 限制关键字参数名称的参数格式  
+\* 后面的参数被视为命名关键字参数
+```py
+# 只接收city和job作为关键字参数
+def person(name, age, *, city, job):
+    print(name, age, city, job)
+```
+
+### 递归函数
+```py
+# 阶乘函数
+def power(x, n):
+    s = 1
+    while n > 0:
+        s = s * x
+        n = n - 1
+    return s
+```
+
+## 高级特性
+切片 slice
 
 ## 函数式编程
+### 高阶函数
+### 返回函数
+### 匿名函数
+### 装饰器
+### 偏函数
 
 ## 模块
 

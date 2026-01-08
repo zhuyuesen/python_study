@@ -60,7 +60,6 @@ Michael
 
 ### 2. 数据类型和变量
 
-
 **数据类型：**
 整数：
 1. 十进制与数学书写一样
@@ -267,7 +266,7 @@ else:
 
 ```
 
-### match
+### 匹配模式 match
 ```py
 # 简单匹配
 score = 'B'
@@ -283,7 +282,6 @@ match score:
 
 # 复杂匹配
 age = 15
-
 match age:
     case x if x < 10:
         print(f'< 10 years old: {x}')
@@ -298,8 +296,105 @@ match age:
 
 ```
 
+### 循环
+1 for in 
+```py
+names = ['Michael', 'Bob', 'Tracy']
+for name in names:
+    print(name)
+```
+range() 函数: 生成从0开始的整数序列. range(101)就可以生成0-100的整数序列
+```py
+>>> list(range(5))
+[0, 1, 2, 3, 4]
+```
+2. while 循环
+```py
+sum = 0
+n = 99
+while n > 0:
+    sum = sum + n
+    n = n - 2
+print(sum)
+```
+break: 提前退出循环
+continue: 跳过当次循环
+```py
+# 打印出1~10后，紧接着打印END，程序结束。
+n = 1
+while n <= 100:
+    if n > 10: # 当n = 11时，条件满足，执行break语句
+        break # break语句会结束当前循环
+    print(n)
+    n = n + 1
+print('END')
+
+# 只打印奇数
+n = 0
+while n < 10:
+    n = n + 1
+    if n % 2 == 0: # 如果n是偶数，执行continue语句
+        continue # continue语句会直接继续下一轮循环，后续的print()语句不会执行
+    print(n)
+```
+
 
 ### 5. dict和Set
+1. dict 全称dictionary， 类似js的map, 使用键-值（key-value）存储，具有极快的查找速度。
+```py
+>>> d = {'Michael': 95, 'Bob': 75, 'Tracy': 85}
+>>> d['Michael']
+95
+
+# 赋值
+>>> d['Adam'] = 67
+>>> d['Adam']
+67
+
+# 如果key不存在，dict就会报错：
+>>> d['Thomas']
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+KeyError: 'Thomas'
+
+# 要避免key不存在的错误，有两种办法，一是通过in判断key是否存在：
+>>> 'Thomas' in d
+False
+# 二是通过dict提供的get()方法，如果key不存在，可以返回None，或者自己指定的value：
+>>> d.get('Thomas')
+>>> d.get('Thomas', -1)
+-1
+
+# 移除key
+d.pop('Bob')
+```
+
+2. set 一组不重复的值组成的集合， 跟js的Set差不多
+```py
+>>> s = {1, 2, 3}
+>>> s
+{1, 2, 3}
+
+# 使用list构建set
+>>> s = set([1, 2, 3])
+>>> s
+{1, 2, 3}
+
+# add(key) 增加元素
+s.add(4)
+
+# remove(key)删除元素
+s.remove(4)
+
+# set可以看成数学意义上的无序和无重复元素的集合，因此，两个set可以做数学意义上的交集、并集等操作：
+>>> s1 = {1, 2, 3}
+>>> s2 = {2, 3, 4}
+>>> s1 & s2
+{2, 3}
+>>> s1 | s2
+{1, 2, 3, 4}
+
+```
 
 ## 函数
 
